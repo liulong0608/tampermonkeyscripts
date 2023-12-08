@@ -1,96 +1,16 @@
 // ==UserScript==
-// @name         personnelAddition
-// @namespace    https://gitee.com/liu-long068/TampermonkeyScript.git
+// @name         generateName
+// @namespace    https://gitee.com/liu-long068/
 // @version      0.2
-// @description  工资系统人员新增
+// @description  随机生成姓名
 // @author       echo
-// @match        *://*/*/personnel/add-staff
+// @match        *://*.*
 // @icon         none
 // @grant        none
-// @require      https://gitee.com/liu-long068/TampermonkeyScript/raw/master/generateName.js
 // ==/UserScript==
 (function () {
     'use strict';
-    const button = '<button id="myButton" class="myButtonStyle">一键新增人员</button>';
-    const buttonContainer = document.createElement('div');
-    buttonContainer.innerHTML = button;
-    document.body.appendChild(buttonContainer);
-
-    document.querySelector('#myButton').addEventListener('click', function () {
-        setInputValue('input[formcontrolname="staffName"]', generateName());  //人员姓名
-    });
-
-    const buttonStyle = `
-    position: fixed;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    padding: 0px;
-    opacity: 0;
-    transition: opacity 0.5s;
-`
-    buttonContainer.setAttribute('style', buttonStyle);
-
-    const style = document.createElement('style');
-    style.textContent = `
-    .myButtonStyle {
-        background-color: #4CAF50; /* Green background */
-        border: none; /* No border */
-        color: white; /* White text */
-        padding: 15px 32px; /* Some padding */
-        text-align: center; /* Centered text */
-        text-decoration: none; /* No underline */
-        display: inline-block;
-        font-size: 16px; /* Big font size */
-        margin: 4px 2px; /* Some margin */
-        cursor: pointer; /* Pointer/hand icon on hover */
-        border-radius: 12px; /* Rounded corners */
-    }
-
-    .myButtonStyle:hover {
-        background-color: #45a049; /* Darker green background on hover */
-    }
-`;
-    document.head.appendChild(style);
-
-    buttonContainer.addEventListener('mouseenter', function () {
-        this.style.opacity = '1';
-    });
-
-    buttonContainer.addEventListener('mouseleave', function () {
-        this.style.opacity = '0';
-    });
-
-    function getRandomElement(arr) {
-        /**
-         * 随机返回一个数组
-         * @param {Array} arr
-         */
-        return arr[Math.floor(Math.random() * arr.length)];
-    }
-
-    function setInputValue(selector, value) {
-        /**
-         * 设置输入框，触发事件
-         * @param {String} selector ： 输入框的元素路径值*
-         * @param {String} value： 输入框的值
-         */
-            // 获取元素
-        const element = document.querySelector(selector);
-        if (!element) return; // 如果没有找到元素，直接返回
-
-        // 设置值
-        element.value = value;
-
-        // 创建并触发事件
-        const event = new InputEvent('input', {
-            'bubbles': true,
-            'cancelable': true,
-        });
-        element.dispatchEvent(event);
-    }
-
-    function generateName() {
+        function generateName() {
         /**
          * 生成随机名字
          * @type {string[]}
@@ -142,6 +62,14 @@
         const lastName = getRandomElement(lastNames);
 
         return firstName + lastName;
+    }
+
+    function getRandomElement(arr) {
+        /**
+         * 随机返回一个数组
+         * @param {Array} arr
+         */
+        return arr[Math.floor(Math.random() * arr.length)];
     }
 
 })();
